@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -18,34 +20,67 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>All Products</h2>
+  const handleBuyNow = (productId) => {
+    navigate(`/products/${productId}`);
+  };
 
-      {allProducts.length === 0 ? (
-        <p>No Products Found</p>
-      ) : (
-        <div>
-          {allProducts.map((p) => (
+  return (
+    <div style={{ padding: "30px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "25px" }}>
+        All Products
+      </h2>
+
+      {/* Grid container */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px",
+        }}
+      >
+        {allProducts.length === 0 ? (
+          <p>No Products Found</p>
+        ) : (
+          allProducts.map((p) => (
             <div
               key={p.productId}
               style={{
-                border: "1px solid gray",
-                padding: "12px",
-                marginBottom: "10px",
-                borderRadius: "6px",
+                border: "1px solid #ccc",
+                padding: "20px",
+                borderRadius: "10px",
+                background: "#fff",
+                boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+                transition: "0.3s",
               }}
             >
-              <h3>{p.productName}</h3>
-              <p><b>Product ID:</b> {p.productId}</p>
-              <p><b>Auth ID:</b> {p.authId}</p>
-              <p><b>Type:</b> {p.type}</p>
+              <h3 style={{ marginBottom: "10px" }}>{p.productName}</h3>
+
               <p><b>Price:</b> ₹{p.price}</p>
-              <p><b>Created At:</b> {p.createdAt}</p>
+              <p><b>Category:</b> {p.type}</p>
+              <p><b>Created:</b> {p.createdAt}</p>
+
+              {/* Buy Now Button */}
+              <button
+                onClick={() => handleBuyNow(p.productId)}
+                style={{
+                  marginTop: "15px",
+                  width: "100%",
+                  padding: "10px",
+                  border: "none",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                }}
+              >
+                Buy Now
+              </button>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 };
