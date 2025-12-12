@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from '../store/AuthSlice';
+import { decodeToken } from "../utils/jwtUtils";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,15 +21,18 @@ const Login = () => {
         password,
       });
 
-      alert("Login Successful!");
+      
 
       // save token
       localStorage.setItem("token", res.data.token);
+      const decodedUser=decodeToken(res.data?.token)
+      dispatch(login(decodedUser))
 
       // redirect to home
       navigate("/home");
+      toast.success("login Success");
     } catch (err) {
-      alert("Login Failed!");
+      console.log(err)
     }
   };
 

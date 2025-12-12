@@ -8,6 +8,10 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Products from "./components/products";
 import ProductDetails from "./components/ProductDetails";
+import UserProfile from "./components/UserProfile";
+import UnauthorizedPage from "./components/UnauthorizedPage";
+import NotFound from "./notFound/NotFound";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -26,6 +30,13 @@ function App() {
         {/* Added Auth Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+
+         <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<UserProfile/>}/>
+         </Route>
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -10,7 +10,7 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:9002/app1/api/products/my-products",
+          "http://localhost:9001/app2/api/product/all",
           {
             headers: {
               Authorization: `Bearer ${token}`,
