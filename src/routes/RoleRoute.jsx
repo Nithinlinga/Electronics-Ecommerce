@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import Loader from "../Loader";
+import Loader from "../components/Loader"
 
 function RoleRoute({ roles = [] }) {
   const { user,role } = useSelector((state) => state.auth);
@@ -14,4 +14,4 @@ function RoleRoute({ roles = [] }) {
     : <Navigate to="/unauthorized" replace />;
 }
 
-export default RoleRoute;
+export default RoleRoute; 
