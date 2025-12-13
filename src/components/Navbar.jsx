@@ -26,6 +26,7 @@ export default function Navbar() {
         <Link to="/products" className="hover:text-yellow-400">Products</Link>
         <Link to="/about" className="hover:text-yellow-400">About</Link>
         <Link to="/contact" className="hover:text-yellow-400">Contact</Link>
+        <Link to="/addProduct" className="hover:text-yellow-400">AddProduct</Link>
 
         {/* New buttons */}
         {!isAuthenticated && 

@@ -12,6 +12,7 @@ import UserProfile from "./components/UserProfile";
 import UnauthorizedPage from "./components/UnauthorizedPage";
 import NotFound from "./notFound/NotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AddProduct from "./components/Admin/AddProduct";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/about" element={<div className="p-6">About Us Page</div>} />
         <Route path="/contact" element={<div className="p-6">Contact Page</div>} />
         <Route path="/home" element={<Home />}/>
+        <Route path="/addProduct" element={<AddProduct/>}/>
 
         {/* Added Auth Routes */}
         <Route path="/login" element={<Login />} />
