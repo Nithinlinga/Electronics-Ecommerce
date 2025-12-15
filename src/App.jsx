@@ -14,6 +14,8 @@ import NotFound from "./notFound/NotFound";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AddProduct from "./components/Admin/AddProduct";
 import RoleRoute from "./routes/RoleRoute";
+import Payment from "./components/Payment";
+
 
 function App() {
   return (
@@ -37,6 +39,12 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<RoleRoute roles={['user', 'admin']} />}>
             <Route path="/profile" element={<UserProfile />} />
+          </Route>
+
+          <Route element={<ProtectedRoute />}>
+            <Route element={<RoleRoute roles={['admin']} />}>
+            <Route path="/payment/:productId" element={<Payment />} />
+            </Route>
           </Route>
 
         </Route>

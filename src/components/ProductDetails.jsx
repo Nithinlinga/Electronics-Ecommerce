@@ -1,25 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+
+  const token = localStorage.getItem("token");
 
   const fetchProductById = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:9001/app2/api/product/product/${productId}`
+        `http://localhost:9001/app2/api/product/product/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setProduct(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   useEffect(() => {
     fetchProductById();
-  }, []);
+  }, [productId]);
 
   if (!product) return <h3>Loading...</h3>;
 
@@ -33,6 +41,7 @@ const ProductDetails = () => {
       <p><b>Date:</b> {product.createdAt}</p>
 
       <button
+        onClick={() => navigate(`/payment/${product.productId}`)}
         style={{
           marginTop: "20px",
           padding: "10px 20px",
