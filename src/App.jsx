@@ -15,6 +15,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AddProduct from "./components/Admin/AddProduct";
 import RoleRoute from "./routes/RoleRoute";
 import Payment from "./components/Payment";
+import PaymentHistory from "./components/PaymentHistory";
 
 
 function App() {
@@ -37,18 +38,12 @@ function App() {
 
 
         <Route element={<ProtectedRoute />}>
-          <Route element={<RoleRoute roles={['user', 'admin']} />}>
-            <Route path="/profile" element={<UserProfile />} />
-          </Route>
-
-          <Route element={<ProtectedRoute />}>
-            <Route element={<RoleRoute roles={['admin']} />}>
+            <Route element={<RoleRoute roles={['admin','user']} />}>
             <Route path="/payment/:productId" element={<Payment />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/payment/history" element={<PaymentHistory />} />
             </Route>
-          </Route>
-
-        </Route>
-        <Route element={<ProtectedRoute />}>
+          
           <Route element={<RoleRoute roles={['admin']} />}>
             <Route path="/admin/addProduct" element={<AddProduct />} />
           </Route>
